@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Dapr 指南 Blog</title>
+        <link>https://your-docusaurus-test-site.com/blog</link>
+        <description>Dapr 指南 Blog</description>
+        <lastBuildDate>Wed, 12 May 2021 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[一年增加 1.2w 星，Dapr 能否引领云原生中间件的未来？]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/1e414e7ad2fb68e8d5dc620a6</link>
+            <guid>1e414e7ad2fb68e8d5dc620a6</guid>
+            <pubDate>Wed, 12 May 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[作者 | 敖小剑  阿里云高级技术专家、Dapr Maintainer]]></description>
+        </item>
+        <item>
+            <title><![CDATA[A visual guide to Dapr]]></title>
+            <link>https://your-docusaurus-test-site.com/blog/pckmUYf2mpc3Erg74hSU</link>
+            <guid>pckmUYf2mpc3Erg74hSU</guid>
+            <pubDate>Mon, 10 May 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[原文来自 Dapr 官方博客 A visual guide to Dapr，文章内容比较浅显易懂，适合简单阅读以对 Dapr 有个初步了解。最大的亮点是那张 Dapr 的概述大图，很好，很萌，作者 Nitya Narasimhan 是个很会画图的大眼萌妹子。]]></description>
+        </item>
+    </channel>
+</rss>

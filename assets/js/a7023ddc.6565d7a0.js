@@ -1,0 +1,1 @@
+(self.webpackChunkdapr_handbook=self.webpackChunkdapr_handbook||[]).push([[713],{7485:function(a){"use strict";a.exports=JSON.parse('{"dapr":{"allTagsPath":"/blog/tags","slug":"dapr","name":"dapr","count":2,"permalink":"/blog/tags/dapr"},"info-q":{"allTagsPath":"/blog/tags","slug":"info-q","name":"infoq","count":1,"permalink":"/blog/tags/info-q"}}')}}]);

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://your-docusaurus-test-site.com/blog</id>
+    <title>Dapr 指南 Blog</title>
+    <updated>2021-05-12T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://your-docusaurus-test-site.com/blog"/>
+    <subtitle>Dapr 指南 Blog</subtitle>
+    <icon>https://your-docusaurus-test-site.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[一年增加 1.2w 星，Dapr 能否引领云原生中间件的未来？]]></title>
+        <id>1e414e7ad2fb68e8d5dc620a6</id>
+        <link href="https://your-docusaurus-test-site.com/blog/1e414e7ad2fb68e8d5dc620a6"/>
+        <updated>2021-05-12T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[作者 | 敖小剑  阿里云高级技术专家、Dapr Maintainer]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[A visual guide to Dapr]]></title>
+        <id>pckmUYf2mpc3Erg74hSU</id>
+        <link href="https://your-docusaurus-test-site.com/blog/pckmUYf2mpc3Erg74hSU"/>
+        <updated>2021-05-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[原文来自 Dapr 官方博客 A visual guide to Dapr，文章内容比较浅显易懂，适合简单阅读以对 Dapr 有个初步了解。最大的亮点是那张 Dapr 的概述大图，很好，很萌，作者 Nitya Narasimhan 是个很会画图的大眼萌妹子。]]></summary>
+    </entry>
+</feed>
