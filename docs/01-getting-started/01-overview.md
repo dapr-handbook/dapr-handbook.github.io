@@ -39,12 +39,9 @@ Actors | 一种用于有状态和无状态对象的模式，通过方法和状�
 
 ## Sidecar 架构
 
-
-
 Dapr 以 sidecar 架构的方式公开其API，可以是容器，也可以是进程，不需要应用代码包含任何 Dapr 运行时代码。 这使得 Dapr 与其他运行时的集成变得容易，同时也提供了应用逻辑的分离，改善可支持性。
 
 ![](/overview/overview-sidecar-model.png)
-
 
 ## 托管环境
 

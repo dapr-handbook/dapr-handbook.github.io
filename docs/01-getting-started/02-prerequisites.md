@@ -18,18 +18,17 @@ powershell -Command "iwr -useb https://raw.githubusercontent.com/dapr/cli/master
 ```shell
 Installing Dapr...
 Creating c:\dapr directory
-Downloading https://api.github.com/repos/dapr/cli/releases/assets/34341976 ...
+Downloading https://api.github.com/repos/dapr/cli/releases/assets/49209969 ...
 Extracting c:\dapr\dapr_windows_amd64.zip...
-CLI version: 1.1.0
+CLI version: 1.5.0
 Runtime version: n/a
 Clean up c:\dapr\dapr_windows_amd64.zip...
 Try to add c:\dapr to User Path Environment variable...
-Added c:\dapr to User Path - C:\Users\zhurong\AppData\Local\Microsoft\WindowsApps;C:\Users\zhurong\.dotnet\tools;C:\Program Files\JetBrains\DataGrip 2020.3.2\bin;;C:\Users\zhurong\AppData\Roaming\npm;C:\Program Files\JetBrains\JetBrains Rider 2021.1.2\bin;;c:\dapr
+Added c:\dapr to User Path 
 
 Dapr CLI is installed successfully.
 To get started with Dapr, please visit https://docs.dapr.io/getting-started/ .
 Ensure that Docker Desktop is set to Linux containers mode when you run Dapr in self hosted mode.
-PS C:\Users\zhurong>
 ```
 
 您可以通过重新启动您的终端/命令提示和运行以下操作来验证CLI：
@@ -50,6 +49,7 @@ Usage:
   dapr [command]
 
 Available Commands:
+  build-info     Print build info of Dapr CLI and runtime
   completion     Generates shell completion scripts
   components     List all Dapr components. Supported platforms: Kubernetes
   configurations List all Dapr configurations. Supported platforms: Kubernetes
@@ -63,9 +63,9 @@ Available Commands:
   publish        Publish a pub-sub event. Supported platforms: Self-hosted
   run            Run Dapr and (optionally) your application side by side. Supported platforms: Self-hosted
   status         Show the health status of Dapr services. Supported platforms: Kubernetes
-  stop           Stop Dapr instances and their associated apps. . Supported platforms: Self-hosted
+  stop           Stop Dapr instances and their associated apps. Supported platforms: Self-hosted
   uninstall      Uninstall Dapr runtime. Supported platforms: Kubernetes and self-hosted
-  upgrade        Upgrades a Dapr control plane installation in a cluster. Supported platforms: Kubernetes
+  upgrade        Upgrades or downgrades a Dapr control plane installation in a cluster. Supported platforms: Kubernetes
 
 Flags:
   -h, --help          help for dapr
@@ -73,7 +73,6 @@ Flags:
   -v, --version       version for dapr
 
 Use "dapr [command] --help" for more information about a command.
-PS C:\Users\zhurong>
 ```
 
 ## 初始化 Dapr
@@ -91,7 +90,12 @@ Dapr 与您的应用程序一起作为sidecar运行，在自托管模式下，�
 
 ```shell
 PS C:\Users\zhurong> dapr init
+
 Making the jump to hyperspace...
+Failed to get runtime version: 'https://api.github.com/repos/dapr/dapr/releases - 403 Forbidden'. Trying secondary source
+Installing runtime version 1.5.0
+cannot get the latest dashboard version: 'https://api.github.com/repos/dapr/dashboard/releases - 403 Forbidden'. Try specifying --dashboard-version=<desired_version>
+continuing, but dashboard will be unavailable
 Downloading binaries and setting up components...
 Downloaded binaries and completed components set up.
 daprd binary has been installed to C:\Users\zhurong\.dapr\bin.
@@ -100,18 +104,16 @@ dapr_redis container is running.
 dapr_zipkin container is running.
 Use `docker ps` to check running containers.
 Success! Dapr is up and running. To get started, go here: https://aka.ms/dapr-getting-started
-PS C:\Users\zhurong>
 ```
 
 ### 2. 验证容器正在运行
 
 ```
 PS C:\Users\zhurong> docker ps
-CONTAINER ID   IMAGE               COMMAND                  CREATED              STATUS                        PORTS                              NAMES
-167c7b6c55c1   daprio/dapr         "./placement"            About a minute ago   Up About a minute             0.0.0.0:6050->50005/tcp            dapr_placement
-356bf84211f8   openzipkin/zipkin   "start-zipkin"           About a minute ago   Up About a minute (healthy)   9410/tcp, 0.0.0.0:9411->9411/tcp   dapr_zipkin
-12a0fbe69b55   redis               "docker-entrypoint.s…"   About a minute ago   Up About a minute             0.0.0.0:6379->6379/tcp             dapr_redis
-PS C:\Users\zhurong>
+CONTAINER ID   IMAGE               COMMAND                  CREATED              STATUS                    PORTS                              NAMES
+f6794a86ae2a   daprio/dapr:1.5.0   "./placement"            41 seconds ago       Up 39 seconds             0.0.0.0:6050->50005/tcp            dapr_placement
+30a956da7a11   openzipkin/zipkin   "start-zipkin"           44 seconds ago       Up 42 seconds (healthy)   9410/tcp, 0.0.0.0:9411->9411/tcp   dapr_zipkin
+9e9adbdb6497   redis               "docker-entrypoint.s…"   About a minute ago   Up About a minute         0.0.0.0:6379->6379/tcp             dapr_redis
 ```
 
 ### 3. 验证组件目录已初始化
@@ -159,7 +161,7 @@ dapr init
 ```
 $ dapr --version
 
-CLI version: 1.2
-Runtime version: 1.2
+CLI version: 1.5.0
+Runtime version: 1.5.0
 ```
 
