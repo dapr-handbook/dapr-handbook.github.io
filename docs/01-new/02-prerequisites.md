@@ -27,7 +27,7 @@ Try to add c:\dapr to User Path Environment variable...
 Added c:\dapr to User Path 
 
 Dapr CLI is installed successfully.
-To get started with Dapr, please visit https://docs.dapr.io/getting-started/ .
+To get started with Dapr, please visit https://docs.dapr.io/new/ .
 Ensure that Docker Desktop is set to Linux containers mode when you run Dapr in self hosted mode.
 ```
 
@@ -103,7 +103,7 @@ dapr_placement container is running.
 dapr_redis container is running.
 dapr_zipkin container is running.
 Use `docker ps` to check running containers.
-Success! Dapr is up and running. To get started, go here: https://aka.ms/dapr-getting-started
+Success! Dapr is up and running. To get started, go here: https://aka.ms/dapr-new
 ```
 
 ### 2. 验证容器正在运行

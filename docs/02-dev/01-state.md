@@ -105,19 +105,6 @@ namespace: masa-stack
 
 下面的示例演示如何使用Dapr从状态存储读取数据。
 
-#### 通过curl命令
-
-* 写状态
-```shell
-curl -X POST -H "Content-Type: application/json" -d '[{ "key": "key1", "value": "value1"}]' http://localhost:3500/v1.0/state/statestore
-```
-
-* 读状态
-```shell
-curl http://localhost:3500/v1.0/state/statestore/key1
-```
-
-#### 通过.Net SDK
 
 * 读状态
 ```C#
@@ -150,19 +137,4 @@ var result = await daprClient.TrySaveStateAsync("statestore", city, weatherForec
 
 Dapr还允许你在同一个调用中读写多个状态。
 
-#### 通过curl命令
-
-* 写状态
-```shell
-curl -X POST http://localhost:3500/v1.0/state/statestore \
-    -H "Content-Type: application/json" \
-    -d '[{ "key": "Key1", "value": "Value1" },{ "key": "Key2", "value": "Value2" }]'
-```
-
-* 读状态
-```shell
-curl -X POST  http://localhost:3500/v1.0/state/statestore \
-    -H "Content-Type: application/json" \
-    -d '{"keys":["key1", "key2"]}'
-```
 

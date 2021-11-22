@@ -6,7 +6,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/daprhandbook.png',
   organizationName: 'dapr-handbook', // Usually your GitHub org/user name.
   projectName: 'dapr-handbook.github.io', // Usually your repo name.
   themeConfig: {
@@ -14,18 +14,18 @@ module.exports = {
       title: 'Dapr 指南',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/docusaurus.png',
+        src: 'img/daprhandbook.png',
       },
       items: [
         {
           type: 'doc',
-          docId: 'getting-started/overview',
+          docId: 'new/overview',
           position: 'right',
           label: '入门',
         },
         {
           type: 'doc',
-          docId: 'developing/state',
+          docId: 'dev/state',
           position: 'right',
           label: '进阶',
         },
