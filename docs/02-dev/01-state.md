@@ -72,8 +72,8 @@ Dapr 还支持 `last-write-wins` 策略。 使用此方法时，客户端不会�
 
 #### Kubernetes    
 
-在 Kubernetes 中部署，需要编写下面的文件，可以命名为 `statestore.yaml`  
-```
+在 Kubernetes 中部署下面的文件  `kubectl apply -f statestore.yaml`
+```yaml title="statestore.yaml"
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
@@ -90,9 +90,9 @@ spec:
   - name: actorStateStore
     value: "true"
 ```
-然后注入到K8S中 `kubectl apply -f statestore.yaml` 。
 
-**注意：** 最初，参考官方配置，我们认为，命名空间不选，或者选择dapr命名空间，才是合理的，这会导致下面的问题：
+:::info
+最初，参考官方配置，我们认为，命名空间不选，或者选择dapr命名空间，才是合理的，这会导致下面的问题：
 
 ![](../../static/docs/20211103165907.png)
 
@@ -100,41 +100,128 @@ spec:
 ```
 namespace: masa-stack
 ```
+:::
+
 
 ### 读写单个状态
 
-下面的示例演示如何使用Dapr从状态存储读取数据。
-
+* 写状态  
+```C#
+_daprClient.SaveStateAsync<string>("statestore", "guid", value);
+```
 
 * 读状态
 ```C#
-var weatherForecast = await daprClient.GetStateAsync<WeatherForecast>("statestore", "AMS");
+var result = await _daprClient.GetStateAsync<string>("statestore", "guid");
 ```
 
-* 写状态  
-```C#
-daprClient.SaveStateAsync("statestore", "AMS", weatherForecast);
+其中， `"statestore"`来自这里
+```yaml title="statestore.yaml"
+metadata:
+  name: statestore  <------
+  namespace: masa-stack 
 ```
-该示例使用 "last-write-wins" 策略，因为 ETag 值不会传递给状态存储组件。 
+
+### 通过tag防止并发冲突
 
 若要将乐观并发控制 (OCC) "first-write-wins" 策略，请先使用 `DaprClient.GetStateAndETagAsync` 获得 `ETag`， 然后使用 `DaprClient.TrySaveStateAsync` 方法写入更新后的值，并传递先前的`ETag`。如下：
 
 ```C#
-var (weatherForecast, etag) = await daprClient.GetStateAndETagAsync<WeatherForecast>("statestore", city);
+var (value, etag) = await _daprClient.GetStateAndETagAsync<string>("statestore", "guid");
 
-// ... make some changes to the retrieved weather forecast
+value ??= Guid.NewGuid().ToString()+ "1";// make some changes to the retrieved weather forecast
 
-var result = await daprClient.TrySaveStateAsync("statestore", city, weatherForecast, etag);
+var result = await _daprClient.TrySaveStateAsync<string>("statestore", "guid", value , etag);
 ```
 
-`DaprClient.TrySaveStateAsync` 方法会返回一个布尔值，指示调用是否成功。 
+`DaprClient.TrySaveStateAsync` 方法会返回一个布尔值，指示调用是否成功。
 
-处理失败的一种策略是，只需从状态存储重新加载更新后的数据，再次进行更改，然后重新提交更新。
+```C#
+var result = await _daprClient.TryDeleteStateAsync("statestore", "guid", etag);
+```
+
+处理失败的一种策略是，从状态存储重新加载更新后的数据，再次进行更改，然后重新提交更新。
 
 如果始终希望写入成功，而不考虑对数据的其他更改，请使用 "last-write-wins" 策略。
 
 ### 读写多个状态
 
-Dapr还允许你在同一个调用中读写多个状态。
+
+* 写多状态  
+```C#
+var metadata1 = new Dictionary<string, string>()
+{
+    {"a", "b" }
+};
+var options1 = new StateOptions
+{
+    Concurrency = ConcurrencyMode.LastWrite
+};
+var requests = new List<StateTransactionRequest>()
+{
+    new StateTransactionRequest("value1", Guid.NewGuid().ToByteArray(), StateOperationType.Upsert),
+    new StateTransactionRequest("value2", Guid.NewGuid().ToByteArray(), StateOperationType.Delete),
+    new StateTransactionRequest("value3", Guid.NewGuid().ToByteArray(), StateOperationType.Upsert
+      , "testEtag", metadata1, options1),
+};
+
+await _daprClient.ExecuteStateTransactionAsync("statestore", requests);
+```
+
+
+* 读多状态
+```C#
+var result = await _daprClient.GetBulkStateAsync("statestore", new List<string> { "value1", "value2", "value3" }, 0);
+```
+
+### Key前缀
+
+为了实现状态共享，Dapr 支持以下键前缀策略
+
+* **appid** - 这是默认策略。appid 前缀允许状态只能由具有指定 appid 的应用程序管理。所有状态键都将以 appid 为前缀，并以应用程序为范围。
+
+* **name** - 此设置使用状态存储组件的名称作为前缀。对于给定的状态存储，多个应用程序可以共享相同的状态。
+
+* **none** - 此设置不使用前缀。多个应用程序在不同的状态存储之间共享状态
+
+比如，我们如果采用第二种，`statestore.yaml`可以改成下面的样子
+
+```yaml title="statestore.yaml"
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+  namespace: masa-stack
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: redis-master.dapr.svc.cluster.local:6379
+  - name: redisPassword
+    value: ""
+  - name: actorStateStore
+    value: "true"
+  - name: keyPrefix-test
+    value: dream
+```
+
+让我们再执行一次，写单个状态
+```C#
+_daprClient.SaveStateAsync<string>("statestore", "keyPrefix-test", "zzz");
+```
+
+使用 Redis 控制台工具，在 Redis 缓存中查看 Redis 状态存储组件如何持久保存数据：
+```s
+$ docker exec -ti dapr_redis redis-cli
+
+127.0.0.1:6379> KEYS *
+1) "WebApplication1||guid"
+2) "dream||keyPrefix-test"     
+127.0.0.1:6379> 
+
+```
+
+可以看出，默认前缀和自定义前缀，都很好的保存在Redis当中。
 
 

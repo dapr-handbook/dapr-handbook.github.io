@@ -80,7 +80,7 @@ module.exports = {
         //   ],
         // },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} MASA Stack, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Dream2zz, Inc. Built with Docusaurus.`,
     },
   },
   presets: [

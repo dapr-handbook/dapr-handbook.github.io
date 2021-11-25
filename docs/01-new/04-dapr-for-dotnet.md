@@ -120,17 +120,21 @@ namespace BlazorApp1.Pages
 
 在 `Webapi1` 项目中，打开 `launchSettings.json` 文件，添加以下内容：
 
-```json
-"Dapr": {
-    "commandName": "Executable",
-    "executablePath": "dapr",
-    "commandLineArgs": "run --app-id WebApi1 --app-port 5000 --dapr-http-port 3500 dotnet run ",
-    "workingDirectory": ".",
-    "environmentVariables": {
-    "ASPNETCORE_ENVIRONMENT": "Development"
-    },
-    "use64Bit": true,
-    "applicationUrl": "http://localhost:5000"
+```json title="launchSettings.json"
+{
+  "profiles": {
+    "dapr run": {
+      "commandName": "Executable",
+      "executablePath": "dapr",
+      "commandLineArgs": "run --app-id WebApp1 --app-port 5000 --dapr-http-port 3500 dotnet run ",
+      "workingDirectory": ".",
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
 }
 ```
 
