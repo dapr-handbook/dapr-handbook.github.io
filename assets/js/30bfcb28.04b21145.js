@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdapr_handbook=self.webpackChunkdapr_handbook||[]).push([[756],{9226:function(a){a.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/info-q","name":"InfoQ","count":1,"permalink":"/blog/tags/info-q"}')}}]);
