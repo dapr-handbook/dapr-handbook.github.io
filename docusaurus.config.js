@@ -31,7 +31,7 @@ module.exports = {
         },
         {to: '/blog', label: '文摘', position: 'right'},
         {
-          href: 'http://gitlab-hz.lonsid.cn/Team-Works/Techs-Preview/Dapr-Handbook',
+          href: 'https://github.com/dapr-handbook/dapr-handbook.github.io',
           label: 'GitLab',
           position: 'right',
         },
@@ -75,7 +75,7 @@ module.exports = {
         //     },
         //     {
         //       label: 'GitHub',
-        //       href: 'http://gitlab-hz.lonsid.cn/Team-Works/Techs-Preview/Dapr-Handbook',
+        //       href: 'https://github.com/dapr-handbook/dapr-handbook.github.io',
         //     },
         //   ],
         // },
@@ -91,13 +91,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // editUrl:
-          //   'http://gitlab-hz.lonsid.cn/Team-Works/Techs-Preview/Dapr-Handbook/edit/master/website/',
+          //   'https://github.com/dapr-handbook/dapr-handbook.github.io/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // editUrl:
-          //   'http://gitlab-hz.lonsid.cn/Team-Works/Techs-Preview/Dapr-Handbook/edit/master/website/blog/',
+          //   'https://github.com/dapr-handbook/dapr-handbook.github.io/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
