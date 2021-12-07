@@ -32,7 +32,7 @@ module.exports = {
         {to: '/blog', label: '文摘', position: 'right'},
         {
           href: 'https://github.com/dapr-handbook/dapr-handbook.github.io',
-          label: 'GitLab',
+          className: 'header-github-link',
           position: 'right',
         },
       ],
@@ -80,7 +80,7 @@ module.exports = {
         //   ],
         // },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Dream2zz, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Dream2zz. Built with Docusaurus.`,
     },
   },
   presets: [

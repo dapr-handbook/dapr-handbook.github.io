@@ -127,6 +127,7 @@ namespace BlazorApp1.Pages
       "commandName": "Executable",
       "executablePath": "dapr",
       "commandLineArgs": "run --app-id WebApp1 --app-port 5000 --dapr-http-port 3500 dotnet run ",
+      "launchBrowser": true,
       "workingDirectory": ".",
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5000",

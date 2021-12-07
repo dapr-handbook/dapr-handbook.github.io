@@ -66,9 +66,10 @@ Dapr 还支持 `last-write-wins` 策略。 使用此方法时，客户端不会�
 
 #### Localhost  
 
-当在单机模式下使用 `dapr init` 时，Dapr CLI会自动提供一个状态存储(Redis)，并在components目录中创建相关的YAML
+当在单机模式下使用 `dapr init` 时，Dapr CLI会自动提供一个状态存储(Redis)，并在components目录中创建文件`statestore.yaml`
+
 - 在Linux/MacOS上位于 `$HOME/.dapr/components`，
-- 在Windows上位于 `%USERPROFILE%/.dapr/components`。  
+- 在Windows上位于 `%USERPROFILE%/.dapr/components`。
 
 #### Kubernetes    
 
@@ -78,7 +79,7 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: statestore
-  namespace: masa-stack
+  namespace: demo
 spec:
   type: state.redis
   version: v1
@@ -98,7 +99,7 @@ spec:
 
 通过反复调试，发现，该组件的命名空间，需要跟业务服务在一起！
 ```
-namespace: masa-stack
+namespace: demo
 ```
 :::
 
@@ -119,7 +120,7 @@ var result = await _daprClient.GetStateAsync<string>("statestore", "guid");
 ```yaml title="statestore.yaml"
 metadata:
   name: statestore  <------
-  namespace: masa-stack 
+  namespace: demo 
 ```
 
 ### 通过tag防止并发冲突
@@ -191,7 +192,7 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: statestore
-  namespace: masa-stack
+  namespace: demo
 spec:
   type: state.redis
   version: v1
@@ -225,7 +226,7 @@ $ docker exec -ti dapr_redis redis-cli
 可以看出，默认前缀和自定义前缀，都很好的保存在Redis当中。
 
 
-## 场景
+## 衍生
 
 拿聊天场景来举例，最初，我们有一个聊天服务器，用户通过接口`reportme`上报自己的状态，通过接口`onlineUsers`来获得全部的在线用户，如下图：
 
