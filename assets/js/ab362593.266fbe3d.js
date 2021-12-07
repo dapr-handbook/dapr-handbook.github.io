@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdapr_handbook=self.webpackChunkdapr_handbook||[]).push([[915],{2843:function(a){a.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/dapr","name":"Dapr","count":1,"permalink":"/blog/tags/dapr"}')}}]);
