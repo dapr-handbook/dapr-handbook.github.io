@@ -85,7 +85,7 @@ spec:
 
 ### 注册服务
 
-```C#
+```js
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddDapr(); // +
@@ -143,7 +143,7 @@ public async Task<ActionResult> Sub(WeatherForecast massage)
 
 ### 发布消息
 
-```C#
+```js
 [HttpGet]
 public async Task<ActionResult> Pub()
 {

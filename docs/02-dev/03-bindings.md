@@ -91,7 +91,7 @@ https://docs.dapr.io/reference/components-reference/supported-bindings/mqtt/#spe
 
 ### 订阅消息
 
-```C#
+```js
 [HttpPost("/mybinding")]
 public ActionResult MsgIn([FromBody] WeatherForecast data)
 {
@@ -111,7 +111,7 @@ public ActionResult MsgIn([FromBody] WeatherForecast data)
 
 ### 发布消息
 
-```C#
+```js
 [HttpGet]
 public async Task<ActionResult> MsgOut()
 {

@@ -57,7 +57,7 @@ Dapr 还支持 `last-write-wins` 策略。 使用此方法时，客户端不会�
 
 ## 开发
 
-### 配置状态存储
+### 配置组件
 
 状态存储组件代表Dapr用来与数据库进行通信的资源。
 
@@ -107,12 +107,12 @@ namespace: demo
 ### 读写单个状态
 
 * 写状态  
-```C#
+```js
 _daprClient.SaveStateAsync<string>("statestore", "guid", value);
 ```
 
 * 读状态
-```C#
+```js
 var result = await _daprClient.GetStateAsync<string>("statestore", "guid");
 ```
 
@@ -127,7 +127,7 @@ metadata:
 
 若要将乐观并发控制 (OCC) "first-write-wins" 策略，请先使用 `DaprClient.GetStateAndETagAsync` 获得 `ETag`， 然后使用 `DaprClient.TrySaveStateAsync` 方法写入更新后的值，并传递先前的`ETag`。如下：
 
-```C#
+```js
 var (value, etag) = await _daprClient.GetStateAndETagAsync<string>("statestore", "guid");
 
 value ??= Guid.NewGuid().ToString()+ "1";// make some changes to the retrieved weather forecast
@@ -137,7 +137,7 @@ var result = await _daprClient.TrySaveStateAsync<string>("statestore", "guid", v
 
 `DaprClient.TrySaveStateAsync` 方法会返回一个布尔值，指示调用是否成功。
 
-```C#
+```js
 var result = await _daprClient.TryDeleteStateAsync("statestore", "guid", etag);
 ```
 
@@ -149,7 +149,7 @@ var result = await _daprClient.TryDeleteStateAsync("statestore", "guid", etag);
 
 
 * 写多状态  
-```C#
+```js
 var metadata1 = new Dictionary<string, string>()
 {
     {"a", "b" }
@@ -171,7 +171,7 @@ await _daprClient.ExecuteStateTransactionAsync("statestore", requests);
 
 
 * 读多状态
-```C#
+```js
 var result = await _daprClient.GetBulkStateAsync("statestore", new List<string> { "value1", "value2", "value3" }, 0);
 ```
 
@@ -208,12 +208,12 @@ spec:
 ```
 
 让我们再执行一次，写单个状态
-```C#
+```js
 _daprClient.SaveStateAsync<string>("statestore", "keyPrefix-test", "zzz");
 ```
 
 使用 Redis 控制台工具，在 Redis 缓存中查看 Redis 状态存储组件如何持久保存数据：
-```s
+```
 $ docker exec -ti dapr_redis redis-cli
 
 127.0.0.1:6379> KEYS *
